@@ -1,0 +1,39 @@
+{% extends "productapp/base.html" %}
+
+{% block content %}
+<table class="table table-borderless">
+    <thead class="border-bottom font-weight-bold">
+        <tr>
+            <td>Book Name</td>
+            <td>Code</td>
+            <td>Position</td>
+            <td>
+                <a href="{% url 'product_insert' %}" class="btn btn-outline-success">
+                    <i class="fas fa-plus"></i> Add New
+                </a>
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for product in product_list %}
+            <tr>
+                <td>{{product.bookname}}</td>
+                <td>{{product.code}}</td>
+                <td>{{product.position}}</td>
+                <td>
+                    <a href="{% url 'product_update'  %}" class="btn text-secondary px-0">
+                        <i class="far fa-edit fa-lg"></i>
+                    </a>
+                    <form action="{% url 'product_delete' %}" method="post" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn">
+                            <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock content %}
